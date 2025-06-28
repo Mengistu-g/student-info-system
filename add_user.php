@@ -36,8 +36,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($stmt->execute()) {
         echo "User registered successfully!";
         // You can redirect to login page or dashboard here
-        // header("Location: login.php");
-        // exit();
+        //header("Location: login.php");
+         //exit();
     } else {
         echo "Error: " . $stmt->error;
     }
