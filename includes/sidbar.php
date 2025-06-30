@@ -5,6 +5,5 @@
         <a href="students/students.php" class="block hover:bg-gray-100 rounded px-3 py-2">📚 Students</a>
         <a href="teachers/teachers.php" class="block hover:bg-gray-100 rounded px-3 py-2">👩‍🏫 Teachers</a>
         <a href="departments/departments.php" class="block hover:bg-gray-100 rounded px-3 py-2">🏛️ Departments</a>
-        <a href="logout.php" class="block text-red-600 hover:bg-red-100 rounded px-3 py-2">🚪 Logout</a>
     </nav>
 </div>
