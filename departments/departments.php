@@ -37,7 +37,7 @@ $result = $conn->query("SELECT * FROM departments");
                 <td class="p-3"><?php echo $row['id']; ?></td>
                 <td class="p-3"><?php echo htmlspecialchars($row['name']); ?></td>
                 <td class="p-3">
-                    <a href="edit_department.php?id=<?php echo $row['id']; ?>" class="text-blue-600 hover:underline">Edit</a> |
+                    <a href="edit_departement.php?id=<?php echo $row['id']; ?>" class="text-blue-600 hover:underline">Edit</a> |
                     <a href="../delete_department.php?id=<?php echo $row['id']; ?>" class="text-red-600 hover:underline" onclick="return confirm('Delete this department?')">Delete</a>
                 </td>
             </tr>

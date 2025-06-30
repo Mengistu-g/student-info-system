@@ -34,7 +34,7 @@ $result = $conn->query($sql);
         <table class="min-w-full bg-white rounded shadow">
             <thead>
                 <tr class="bg-gray-200 text-left">
-                    <th class="p-3">#</th>
+                    <th class="p-3">id</th>
                     <th class="p-3">Full Name</th>
                     <th class="p-3">Email</th>
                     <th class="p-3">Department</th>
@@ -51,7 +51,7 @@ $result = $conn->query($sql);
                     <td class="p-3"><?php echo $row['department']; ?></td>
                     <td class="p-3"><?php echo $row['teacher']; ?></td>
                     <td class="p-3">
-                        <a href="edit_student.php?id=<?php echo $row['id']; ?>" class="text-blue-600 hover:underline">Edit</a> |
+                        <a href="edit_students.php?id=<?php echo $row['id']; ?>" class="text-blue-600 hover:underline">Edit</a> |
                         <a href="../delete_student.php?id=<?php echo $row['id']; ?>" class="text-red-600 hover:underline" onclick="return confirm('Are you sure?')">Delete</a>
                     </td>
                 </tr>

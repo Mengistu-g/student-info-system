@@ -13,10 +13,11 @@ $teachers = $conn->query("SELECT COUNT(*) AS total FROM teachers")->fetch_assoc(
 $departments = $conn->query("SELECT COUNT(*) AS total FROM departments")->fetch_assoc();
 ?>
 
+
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Dashboard</title>
+    <title>Dashboard To SIS System </title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 min-h-screen">
@@ -24,7 +25,7 @@ $departments = $conn->query("SELECT COUNT(*) AS total FROM departments")->fetch_
 <div class="flex">
     
  <aside class="w-64 bg-white shadow-lg min-h-screen hidden md:block">
-  <div class="p-4 text-xl font-bold border-b border-gray-200">SIS Panel</div>
+  <div class="p-4 text-xl font-bold border-b border-gray-200">SIS system Panel</div>
   <nav class="p-4 space-y-3 text-gray-700">
     <a href="dashboard.php" class="block hover:bg-gray-100 rounded px-3 py-2 transition">🏠 Dashboard</a>
     <a href="students/students.php" class="block hover:bg-gray-100 rounded px-3 py-2 transition">📚 Students</a>

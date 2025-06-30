@@ -47,7 +47,7 @@ $result = $conn->query($sql);
                     <td class="p-3"><?php echo htmlspecialchars($row['email']); ?></td>
                     <td class="p-3"><?php echo $row['department']; ?></td>
                     <td class="p-3">
-                        <a href="edit_teacher.php?id=<?php echo $row['id']; ?>" class="text-blue-600 hover:underline">Edit</a> |
+                        <a href="edit_teachers.php?id=<?php echo $row['id']; ?>" class="text-blue-600 hover:underline">Edit</a> |
                         <a href="../delete_teacher.php?id=<?php echo $row['id']; ?>" class="text-red-600 hover:underline" onclick="return confirm('Delete this teacher?')">Delete</a>
                     </td>
                 </tr>

@@ -16,8 +16,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($res->num_rows === 1) {
         $user = $res->fetch_assoc();
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+// echo $user['password'];
+// echo '<br />';
+// echo $hashedPassword;
+// echo '<br />';
+// echo $hashed_password;
 
-        if (password_verify($password, $user['password'])) {
+        if ($password === $user['password']) {
+        // if (password_verify($password, $hashedPassword)) {
             // Set session
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['name'] = $user['name'];
@@ -39,7 +47,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $msg = "User not found.";
     }
 }
+
 ?>
+
+
 
 <!DOCTYPE html>
 <html>
