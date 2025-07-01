@@ -46,11 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <body class="bg-gray-100 min-h-screen">
 
 <div class="flex">
-    <?php include "includes/sidebar.php"; ?>
-
     <div class="flex-1">
-        <?php include "includes/header.php"; ?>
-
         <main class="p-6 max-w-xl mx-auto">
             <h2 class="text-2xl font-bold mb-4">My Profile</h2>
 

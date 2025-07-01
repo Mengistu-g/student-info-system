@@ -24,11 +24,7 @@ $courses = $conn->query($sql);
 </head>
 <body class="bg-gray-100 min-h-screen">
     <div class="flex">
-
-
         <div class="flex-1">
-          
-
             <main class="p-6">
                 <div class="flex justify-between items-center mb-6">
                     <h1 class="text-2xl font-bold">📖 Courses</h1>
@@ -43,6 +39,7 @@ $courses = $conn->query($sql);
                                 <th class="px-4 py-2 border">Code</th>
                                 <th class="px-4 py-2 border">Department</th>
                                 <th class="px-4 py-2 border">Teacher</th>
+                                <th class="px-4 py-2 border">users</th>
                                 <th class="px-4 py-2 border">Actions</th>
                             </tr>
                         </thead>
@@ -51,8 +48,10 @@ $courses = $conn->query($sql);
                                 <tr class="hover:bg-gray-50">
                                     <td class="border px-4 py-2"><?= htmlspecialchars($course['name']) ?></td>
                                     <td class="border px-4 py-2"><?= htmlspecialchars($course['code']) ?></td>
-                                    <td class="border px-4 py-2"><?= htmlspecialchars($course['department_name']) ?></td>
-                                    <td class="border px-4 py-2"><?= htmlspecialchars($course['teacher_name']) ?></td>
+                                    <td class="border px-4 py-2"><?= htmlspecialchars($course['description']) ?></td>
+                                    <td class="border px-4 py-2"><?= htmlspecialchars($course['departemenet_id']) ?></td>
+                                    <td class="border px-4 py-2"><?= htmlspecialchars($course['teacher_id']) ?></td>
+                                     <td class="border px-4 py-2"><?= htmlspecialchars($course['user_id']) ?></td>
                                     <td class="border px-4 py-2">
                                         <a href="edit_course.php?id=<?= $course['id'] ?>" class="text-blue-600 hover:underline">Edit</a> |
                                         <a href="delete_course.php?id=<?= $course['id'] ?>" class="text-red-600 hover:underline" onclick="return confirm('Are you sure to delete this course?')">Delete</a>

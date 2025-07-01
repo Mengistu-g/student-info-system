@@ -2,7 +2,7 @@
 <?php
 //http://www.fpdf.org/en/download.php
 session_start();
-include "conn.php";
+include "../conn.php";
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");

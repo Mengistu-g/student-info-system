@@ -26,8 +26,10 @@ $result = $conn->query($sql);
     <div class="max-w-6xl mx-auto">
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-2xl font-bold">Teacher List</h1>
-            <a href="add_teacher.php" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">+ Add Teacher</a>
-        </div>
+            <a href="../exports/export_csv.php" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Export CSV</a>
+            <a href="../exports/export_pdf.php" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Export PDF</a>
+            <a href="add_teacher.php" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">+ Add Teacher</a>
+                    </div>
 
         <table class="min-w-full bg-white rounded shadow">
             <thead>
