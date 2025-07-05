@@ -25,10 +25,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user_id = $_SESSION['user_id'];
 
     // Insert into courses table
-    $sql = "INSERT INTO courses (name, code, description, department_id, teacher_id,user_id)
-            VALUES (?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO courses (name, code, description, department_id, teacher_id)
+            VALUES (?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssii", $name, $code, $description, $department_id, $teacher_id, $user_id);
+    $stmt->bind_param("sssii", $name, $code, $description, $department_id, $teacher_id);
 
     if ($stmt->execute()) {
         $msg = "<p class='text-green-600'>Course added successfully!</p>";
@@ -80,20 +80,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </select>
             </div>
 
-             <div class="mb-4">
-                <label class="block mb-1 font-medium">users</label>
-                <select name="user_id" class="w-full border px-4 py-2 rounded" required>
-                    <option value="">-- Select users --</option>
-                    <?php while($usres = $users->fetch_assoc()): ?>
-                        <option value="<?= $users['id'] ?>"><?= $users['name'] ?></option>
-                    <?php endwhile; ?>
-                </select>
-            </div>
-
             <div class="mt-6">
                 <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded w-full">
                     Add Course
                 </button>
+                <p class="mt-4">
+            <a href="courses.php" class="text-blue-600 hover:underline">← Back to course List</a>
+        </p>
             </div>
         </form>
     </div>

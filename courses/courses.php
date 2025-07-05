@@ -23,13 +23,14 @@ $courses = $conn->query($sql);
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 min-h-screen">
-    <div class="flex">
+    <div class="max-w-6xl mx-auto">
         <div class="flex-1">
+
             <main class="p-6">
-                <div class="flex justify-between items-center mb-6">
-                    <h1 class="text-2xl font-bold">📖 Courses</h1>
-                    <a href="add_course.php" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">+ Add Course</a>
-                </div>
+         <div class="flex justify-between items-center mb-6">
+                <h1 class="text-2xl font-bold">COURSE  List</h1>
+                <a href="add_course.php" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">+ Add Course</a>
+         </div>
 
                 <div class="bg-white shadow rounded overflow-x-auto">
                     <table class="min-w-full table-auto text-sm border">
@@ -37,24 +38,23 @@ $courses = $conn->query($sql);
                             <tr>
                                 <th class="px-4 py-2 border">Name</th>
                                 <th class="px-4 py-2 border">Code</th>
+                                <th class="px-4 py-2 border">description</th>
                                 <th class="px-4 py-2 border">Department</th>
                                 <th class="px-4 py-2 border">Teacher</th>
-                                <th class="px-4 py-2 border">users</th>
                                 <th class="px-4 py-2 border">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php while ($course = $courses->fetch_assoc()) : ?>
-                                <tr class="hover:bg-gray-50">
-                                    <td class="border px-4 py-2"><?= htmlspecialchars($course['name']) ?></td>
-                                    <td class="border px-4 py-2"><?= htmlspecialchars($course['code']) ?></td>
-                                    <td class="border px-4 py-2"><?= htmlspecialchars($course['description']) ?></td>
-                                    <td class="border px-4 py-2"><?= htmlspecialchars($course['departemenet_id']) ?></td>
-                                    <td class="border px-4 py-2"><?= htmlspecialchars($course['teacher_id']) ?></td>
-                                     <td class="border px-4 py-2"><?= htmlspecialchars($course['user_id']) ?></td>
-                                    <td class="border px-4 py-2">
-                                        <a href="edit_course.php?id=<?= $course['id'] ?>" class="text-blue-600 hover:underline">Edit</a> |
-                                        <a href="delete_course.php?id=<?= $course['id'] ?>" class="text-red-600 hover:underline" onclick="return confirm('Are you sure to delete this course?')">Delete</a>
+                                 <tr class="border-b">
+                                    <td class="p-3"><?php echo $course['name']; ?></td>
+                                    <td class="p-3"><?php echo htmlspecialchars($course['code']); ?></td>
+                                    <td class="p-3"><?php echo htmlspecialchars($course['description']); ?></td>
+                                    <td class="p-3"><?php echo $course['department_name']; ?></td>
+                                    <td class="p-3"><?php echo $course['teacher_name']; ?></td>
+                                    <td class="p-3">
+                                        <a href="edit_course.php?id=<?php echo $course['id']; ?>" class="text-blue-600 hover:underline">Edit</a> |
+                                        <a href="../delete_course.php?id=<?php echo $course['id']; ?>" class="text-red-600 hover:underline" onclick="return confirm('Are you sure?')">Delete</a>
                                     </td>
                                 </tr>
                             <?php endwhile; ?>

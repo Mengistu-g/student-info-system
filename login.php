@@ -58,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="w-full max-w-md bg-white p-8 rounded-2xl shadow-2xl transition duration-300">
         <div class="mb-6 text-center">
             <h1 class="text-3xl font-extrabold text-blue-800">📘 SIS Login</h1>
-            <p class="text-gray-500 mt-1">Sign in to access your dashboard</p>
+            <!-- <p class="text-gray-500 mt-1">Sign in to access your dashboard</p> -->
         </div>
 
         <?php if ($msg): ?>

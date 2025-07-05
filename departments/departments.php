@@ -29,7 +29,7 @@ $result = $conn->query("SELECT * FROM departments");
     <table class="min-w-full bg-white rounded shadow">
         <thead>
             <tr class="bg-gray-200 text-left">
-                <th class="p-3">#</th>
+                <th class="p-3">id</th>
                 <th class="p-3">Department Name</th>
                 <th class="p-3">Action</th>
             </tr>
