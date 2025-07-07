@@ -13,7 +13,7 @@ $msg = "";
 // Fetch departments and teachers for dropdowns
 $departments = $conn->query("SELECT * FROM departments");
 $teachers = $conn->query("SELECT * FROM teachers");
-$users = $conn->query("SELECT * FROM users");
+//$users = $conn->query("SELECT * FROM users");
 
 // Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

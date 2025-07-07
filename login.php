@@ -30,7 +30,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("Location: students/students.php");
             }
             exit;
-        } else {
+        } 
+        else {
             $msg = "Invalid password.";
         }
     } else {

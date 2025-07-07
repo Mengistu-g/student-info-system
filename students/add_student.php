@@ -21,15 +21,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $teacher_id = $_POST['teacher_id'];
 
     // Insert user (for login, with role = student)
-    $password = password_hash("student123", PASSWORD_DEFAULT);
-    $conn->query("INSERT INTO users (name, email, password, role) VALUES ('$fullname', '$email', '$password', 'student')");
-    $user_id = $conn->insert_id;
+        //$password = password_hash("student123", PASSWORD_DEFAULT);
+        //$conn->query("INSERT INTO users (name, email, password, role) VALUES ('$fullname', '$email', '$password', 'student')");
+        //$user_id = $conn->insert_id;
 
     // Insert student
-    $sql = "INSERT INTO students (fullname, email, department_id, teacher_id, user_id)
-            VALUES (?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO students (fullname, email, department_id, teacher_id)
+            VALUES (?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssiii", $fullname, $email, $department_id, $teacher_id, $user_id);
+    $stmt->bind_param("ssii", $fullname, $email, $department_id, $teacher_id);
     $stmt->execute();
 
     $msg = "Student added successfully!";
@@ -49,8 +49,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <p class="text-green-600 mb-4"><?php echo $msg; ?></p>
         <?php endif; ?>
         <form method="POST">
-            <input type="text" name="fullname" placeholder="Full Name" required class="w-full mb-4 p-3 border rounded" />
-            <input type="email" name="email" placeholder="Email" required class="w-full mb-4 p-3 border rounded" />
+            <input type="text" name="fullname" placeholder="Full Name" placeholder="your name " required class="w-full mb-4 p-3 border rounded" />
+            <input type="email" name="email" placeholder="Email" placeholder="your email" required class="w-full mb-4 p-3 border rounded" />
             
             <select name="department_id" required class="w-full mb-4 p-3 border rounded">
                 <option value="">Select Department</option>
