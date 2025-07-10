@@ -12,13 +12,23 @@ $limit = 5; // Number of departments per page
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $limit;
 
-// === Total records count ===
-$totalResult = $conn->query("SELECT COUNT(*) AS total FROM departments");
+$search = isset($_GET['search']) ? trim($_GET['search']) : "";
+$where = "";
+
+if (!empty($search)) {
+    $safeSearch = $conn->real_escape_string($search);
+    $where = "WHERE name LIKE '%$safeSearch%'";
+}
+
+// === Total filtered records count
+$countSql = "SELECT COUNT(*) AS total FROM departments $where";
+$totalResult = $conn->query($countSql);
 $totalRows = $totalResult->fetch_assoc()['total'];
 $totalPages = ceil($totalRows / $limit);
 
-// === Fetch paginated departments ===
-$result = $conn->query("SELECT * FROM departments LIMIT $limit OFFSET $offset");
+// === Fetch paginated and filtered departments
+$sql = "SELECT * FROM departments $where LIMIT $limit OFFSET $offset";
+$result = $conn->query($sql);
 ?>
 
 <!DOCTYPE html>
@@ -31,8 +41,17 @@ $result = $conn->query("SELECT * FROM departments LIMIT $limit OFFSET $offset");
 <div class="max-w-4xl mx-auto">
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-bold">Departments</h1>
+     <div>
+        <form method="GET" class="flex items-center space-x-2">
+                <input type="text" name="search" placeholder="Search department..."
+                    value="<?php echo htmlspecialchars($search ?? ''); ?>"
+                    class="px-3 py-2 border border-gray-300 rounded w-64 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Search</button>
+         </form>
+      </div>
+
         <div class="space-x-2">
-            <a href="../exports/export_csv.php" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Export CSV</a>
+            <!-- <a href="../exports/export_csv.php" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Export CSV</a> -->
             <a href="../exports/export_pdf.php" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Export PDF</a>
             <a href="add_department.php" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">+ Add Department</a>
         </div>

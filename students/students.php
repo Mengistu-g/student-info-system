@@ -8,7 +8,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 // Pagination setup
-$limit = 10; // students per page
+$limit = 5; // students per page
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $limit;
 
@@ -18,6 +18,25 @@ $totalRows = $totalResult->fetch_assoc()['total'];
 $totalPages = ceil($totalRows / $limit);
 
 // Fetch students with LIMIT
+$search = isset($_GET['search']) ? trim($_GET['search']) : "";
+
+// Build WHERE clause
+$where = "";
+if (!empty($search)) {
+    $safeSearch = $conn->real_escape_string($search);
+    $where = "WHERE s.fullname LIKE '%$safeSearch%' OR s.email LIKE '%$safeSearch%'";
+}
+
+// Count total rows for pagination
+$countSql = "SELECT COUNT(*) AS total FROM students s 
+             LEFT JOIN departments d ON s.department_id = d.id 
+             LEFT JOIN teachers t ON s.teacher_id = t.id 
+             $where";
+$totalResult = $conn->query($countSql);
+$totalRows = $totalResult->fetch_assoc()['total'];
+$totalPages = ceil($totalRows / $limit);
+
+// Fetch data with LIMIT + OFFSET
 $sql = "SELECT 
             s.id, s.fullname, s.email, 
             d.name AS department, 
@@ -25,6 +44,7 @@ $sql = "SELECT
         FROM students s 
         LEFT JOIN departments d ON s.department_id = d.id
         LEFT JOIN teachers t ON s.teacher_id = t.id
+        $where
         LIMIT $limit OFFSET $offset";
 
 $result = $conn->query($sql);
@@ -40,6 +60,16 @@ $result = $conn->query($sql);
     <div class="max-w-6xl mx-auto">
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-2xl font-bold">Student List</h1>
+
+             <div>
+            <form method="GET" class="flex items-center space-x-2">
+            <input type="text" name="search" placeholder="Search by name or email" 
+                value="<?php echo htmlspecialchars($search ?? '') ?>" 
+                class="px-3 py-2 border border-gray-300 rounded w-64 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Search</button>
+            </form>
+      </div>
+
             <div class="space-x-2">
                 <a href="../exports/export_csv.php" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Export CSV</a>
                 <a href="../exports/export_pdf.php" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Export PDF</a>

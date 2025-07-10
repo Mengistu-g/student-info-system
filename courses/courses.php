@@ -12,18 +12,35 @@ $limit = 5; // Number of courses per page
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $limit;
 
-// === Get total number of courses ===
-$totalResult = $conn->query("SELECT COUNT(*) AS total FROM courses");
+$search = isset($_GET['search']) ? trim($_GET['search']) : "";
+$where = "";
+
+if (!empty($search)) {
+    $safeSearch = $conn->real_escape_string($search);
+    $where = "WHERE c.name LIKE '%$safeSearch%' 
+              OR c.code LIKE '%$safeSearch%' 
+              OR c.description LIKE '%$safeSearch%'";
+}
+
+// === Count total matching courses
+$countSql = "SELECT COUNT(*) AS total 
+             FROM courses c 
+             LEFT JOIN departments d ON c.department_id = d.id 
+             LEFT JOIN teachers t ON c.teacher_id = t.id 
+             $where";
+$totalResult = $conn->query($countSql);
 $totalRows = $totalResult->fetch_assoc()['total'];
 $totalPages = ceil($totalRows / $limit);
 
-// === Fetch paginated courses ===
+// === Fetch paginated, filtered courses
 $sql = "SELECT c.*, d.name AS department_name, t.name AS teacher_name
         FROM courses c
         LEFT JOIN departments d ON c.department_id = d.id
         LEFT JOIN teachers t ON c.teacher_id = t.id
+        $where
         ORDER BY c.id DESC
         LIMIT $limit OFFSET $offset";
+
 $courses = $conn->query($sql);
 ?>
 
@@ -38,6 +55,14 @@ $courses = $conn->query($sql);
         <main class="p-6">
             <div class="flex justify-between items-center mb-6">
                 <h1 class="text-2xl font-bold">COURSE List</h1>
+
+        <form method="GET" class="flex items-center space-x-2">
+            <input type="text" name="search" placeholder="Search by name, code or description"
+                value="<?php echo htmlspecialchars($search ?? ''); ?>"
+                class="px-3 py-2 border border-gray-300 rounded w-64 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Search</button>
+      </form>
+
                 <a href="add_course.php" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">+ Add Course</a>
             </div>
 
