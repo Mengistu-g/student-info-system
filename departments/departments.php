@@ -50,9 +50,18 @@ $result = $conn->query($sql);
          </form>
       </div>
 
+      <!-- display messages -->
+       <?php
+      
+       if (isset($_SESSION['error'])) {
+            $error = $_SESSION['error'];
+            echo '<p class="bg-red-400">Error:' . $error . '</p>';
+       }
+       ?>
+
         <div class="space-x-2">
-            <!-- <a href="../exports/export_csv.php" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Export CSV</a> -->
-            <a href="../exports/export_pdf.php" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Export PDF</a>
+            <a href="../exports/export_csv.php" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Export CSV</a>
+            <!-- <a href="../exports/export_pdf.php" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Export PDF</a> -->
             <a href="add_department.php" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">+ Add Department</a>
         </div>
     </div>
@@ -72,7 +81,7 @@ $result = $conn->query($sql);
                 <td class="p-3"><?php echo htmlspecialchars($row['name']); ?></td>
                 <td class="p-3">
                     <a href="edit_departement.php?id=<?php echo $row['id']; ?>" class="text-blue-600 hover:underline">Edit</a> |
-                    <a href="../delete_department.php?id=<?php echo $row['id']; ?>" class="text-red-600 hover:underline" onclick="return confirm('Delete this department?')">Delete</a>
+                    <a href="delete_department.php?id=<?php echo $row['id']; ?>" class="text-red-600 hover:underline" onclick="return confirm('Delete this department?')">Delete</a>
                 </td>
             </tr>
             <?php endwhile; ?>

@@ -20,7 +20,7 @@ $courses = $conn->query("SELECT COUNT(*) AS total FROM courses")->fetch_assoc();
     <title>Dashboard To SIS System</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 min-h-screen">
+<body class="bg-cover bg-center min-h-screen" style="background-image: url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f');">
 
 <div class="flex">
 

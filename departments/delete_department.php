@@ -20,11 +20,11 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $check->execute();
     $result = $check->get_result()->fetch_assoc();
     if ($result['total'] > 0) {
-        echo "Cannot delete: This department is linked to one or more students.";
+        $_SESSION['error'] = "Cannot delete: This department is linked to one or more students.";
+        header("Location: departments.php");
         exit;
     }
     
-
     // Delete the department
     $stmt = $conn->prepare("DELETE FROM departments WHERE id = ?");
     $stmt->bind_param("i", $department_id);

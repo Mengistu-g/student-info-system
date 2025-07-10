@@ -1,12 +1,12 @@
 <?php
 require('../libs/fpdf/fpdf.php');
-require('../conn.php'); // DB connection
+require('../conn.php'); // Database connection
 
 class PDF extends FPDF {
     // Header
     function Header() {
         $this->SetFont('Arial', 'B', 14);
-        $this->Cell(0, 10, 'Student List', 0, 1, 'C');
+        $this->Cell(0, 10, 'Teacher List', 0, 1, 'C');
         $this->Ln(5);
 
         // Column headings
@@ -30,10 +30,11 @@ $pdf = new PDF();
 $pdf->AddPage();
 $pdf->SetFont('Arial', '', 12);
 
-// Fetch student data
-$sql = "SELECT students.id, students.fullname, students.email, departments.name AS department
-        FROM students
-        LEFT JOIN departments ON students.department_id = departments.id";
+// Fetch teacher data
+$sql = "SELECT teachers.id, teachers.fullname, teachers.email, departments.name AS department
+        FROM teachers
+        LEFT JOIN departments ON teachers.department_id = departments.id";
+
 $result = $conn->query($sql);
 
 while ($row = $result->fetch_assoc()) {

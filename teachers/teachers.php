@@ -63,7 +63,7 @@ $result = $conn->query($sql);
         </div>
             <div class="space-x-2">
                 <a href="../exports/export_csv.php" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Export CSV</a>
-                <a href="../exports/export_pdf.php" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Export PDF</a>
+                <a href="../exports/export_teachers_pdf.php" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Export PDF</a>
                 <a href="add_teacher.php" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">+ Add Teacher</a>
             </div>
         </div>
