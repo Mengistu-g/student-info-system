@@ -21,15 +21,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $teacher_id = $_POST['teacher_id'];
 
     // Insert user (for login, with role = student)
-        //$password = password_hash("student123", PASSWORD_DEFAULT);
-        //$conn->query("INSERT INTO users (name, email, password, role) VALUES ('$fullname', '$email', '$password', 'student')");
-        //$user_id = $conn->insert_id;
+        $password = password_hash("student123", PASSWORD_DEFAULT);
+        $conn->query("INSERT INTO users (name, email, password, role) VALUES ('$fullname', '$email', '$password', 'student')");
+        $user_id = $conn->insert_id;
 
     // Insert student
-    $sql = "INSERT INTO students (fullname, email, department_id, teacher_id)
-            VALUES (?, ?, ?, ?)";
+    $sql = "INSERT INTO students (fullname, email, department_id, teacher_id,user_id)
+            VALUES (?, ?, ?, ?,?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssii", $fullname, $email, $department_id, $teacher_id);
+    $stmt->bind_param("ssiii", $fullname, $email, $department_id, $teacher_id,$user_id);
     $stmt->execute();
 
     $msg = "Student added successfully!";

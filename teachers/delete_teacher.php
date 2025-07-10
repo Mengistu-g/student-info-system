@@ -1,15 +1,15 @@
 <?php
 session_start();
-include "conn.php";
+include "../conn.php";
 
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
+    header("Location: ../login.php");
     exit;
 }
 
 $id = $_GET['id'] ?? null;
 if (!$id) {
-    header("Location: teachers/teachers.php");
+   // header("Location: teachers.php");
     exit;
 }
 
@@ -28,7 +28,8 @@ if ($res->num_rows === 1) {
 
     // Delete corresponding user account
     $conn->query("DELETE FROM users WHERE id = $user_id");
+   
 }
+ //header("Location: teachers.php");
 
-header("Location: teachers/teachers.php");
-exit;
+exit; 
