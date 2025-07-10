@@ -1,35 +1,29 @@
 <?php
 session_start();
-include "../conn.php";
+include "../conn.php";  // Adjust if conn.php is in a different location
 
+// Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
     header("Location: ../login.php");
     exit;
 }
 
-$id = $_GET['id'] ?? null;
-if (!$id) {
-   // header("Location: teachers.php");
-    exit;
+// Check if id is set and valid
+if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+    $teacher_id = (int)$_GET['id'];
+
+    // Prepare and execute delete query
+    $stmt = $conn->prepare("DELETE FROM teachers WHERE id = ?");
+    $stmt->bind_param("i", $teacher_id);
+
+    if ($stmt->execute()) {
+        // Redirect back to teachers list with a success message
+        header("Location: teachers.php?msg=deleted");
+        exit;
+    } else {
+        echo "Error deleting teacher record.";
+    }
+} else {
+    echo "Invalid teacher ID.";
 }
-
-// Fetch teacher's user_id
-$stmt = $conn->prepare("SELECT user_id FROM teachers WHERE id = ?");
-$stmt->bind_param("i", $id);
-$stmt->execute();
-$res = $stmt->get_result();
-
-if ($res->num_rows === 1) {
-    $teacher = $res->fetch_assoc();
-    $user_id = $teacher['user_id'];
-
-    // Delete teacher
-    $conn->query("DELETE FROM teachers WHERE id = $id");
-
-    // Delete corresponding user account
-    $conn->query("DELETE FROM users WHERE id = $user_id");
-   
-}
- //header("Location: teachers.php");
-
-exit; 
+?>

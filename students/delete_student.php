@@ -1,34 +1,29 @@
 <?php
 session_start();
-include "../conn.php";
+include "../conn.php";  // Adjust path if needed
 
+// Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
+    header("Location: ../login.php");
     exit;
 }
 
-$id = $_GET['id'] ?? null;
-if (!$id) {
-    header("Location: students/students.php");
-    exit;
+// Check if id is provided via GET and is a valid integer
+if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+    $student_id = (int)$_GET['id'];
+
+    // Prepare and execute delete query
+    $stmt = $conn->prepare("DELETE FROM students WHERE id = ?");
+    $stmt->bind_param("i", $student_id);
+
+    if ($stmt->execute()) {
+        // Redirect to students list page with success message
+        header("Location: students.php?msg=deleted");
+        exit;
+    } else {
+        echo "Error deleting student record.";
+    }
+} else {
+    echo "Invalid student ID.";
 }
-
-// Get student record
-$stmt = $conn->prepare("SELECT user_id FROM students WHERE id = ?");
-$stmt->bind_param("i", $id);
-$stmt->execute();
-$res = $stmt->get_result();
-
-if ($res->num_rows === 1) {
-    $student = $res->fetch_assoc();
-    $user_id = $student['user_id'];
-
-    // Delete student
-    $conn->query("DELETE FROM students WHERE id = $id");
-
-    // Delete associated user account
-    $conn->query("DELETE FROM users WHERE id = $user_id");
-}
-
-header("Location: students/students.php");
-exit;
+?>
